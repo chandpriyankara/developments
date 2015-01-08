@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+
+
+  <appender name="appxRollingAppenderDaily" class="org.apache.log4j.rolling.RollingFileAppender">
+    <rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+      <param name="FileNamePattern" value="TimeBasedLog.%d{yyyy-MM-dd}.log"/>
+
+
+  <param name="activeFileName" value="LoggingFramewor.log" />
+  <!-- <param name="activeFileName" value="appxDailyLog.log"/>-->
+
+    </rollingPolicy>
+
+    <layout class="org.apache.log4j.PatternLayout">
+        <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %x [%p] (%F:%L) %m%n"/>
+    </layout>
+    <!--param name="file" value="appxDailyLog.log"/-->
+
+  <param name="file" value="LoggingFramework%properties{processName}.log" />
+    <param name="append" value="true"/>
+  </appender>
+
+
+  <!-- Output the log message to system console.
+    -->
+  <appender name="appxConsoleAppender" class="org.apache.log4j.ConsoleAppender">    
+    <param name="Target" value="System.out"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%-5p %c{1} - %m%n"/>
+        </layout>
+  </appender>
+
+  <!-- Output the log message to log file
+    -->
+  <appender name="appxNormalAppender" class="org.apache.log4j.FileAppender">
+    <param name="file" value="appxLogFile.log" />
+    <param name="append" value="true" />
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d %-5p %C{2} (%F:%L) - %m%n" />
+    </layout>
+  </appender>
+
+  <root>
+        <priority value="all" />
+        <!--<appender-ref ref="appxNormalAppender"/-->
+        <!--<appender-ref ref="appxConsoleAppender"/-->
+        <appender-ref ref="appxRollingAppenderDaily"/>
+  </root>
+
+  <!-- Specify the level for some specific categories -->
+  <category name="functionA" >
+        <priority value ="all" />
+        <appender-ref ref="appxRollingAppenderDaily"/>
+        <!--appender-ref ref="appxNormalAppender"/>
+        <appender-ref ref="appxConsoleAppender"/-->
+  </category>
+
+ </log4j:configuration>

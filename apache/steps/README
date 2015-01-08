@@ -1,0 +1,16 @@
+apt-get install libtool
+
+cd apr
+./buildconf
+./configure
+make
+
+cd ../apr-util
+./configure --with-apr=../apr
+make
+
+cd ../trunk
+autoreconf --force --install
+./autogen.sh
+./configure --with-apr=../apr --with-apr-util=../apr-util
+make
